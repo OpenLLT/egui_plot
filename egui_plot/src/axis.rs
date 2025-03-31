@@ -352,7 +352,10 @@ impl<'a> AxisWidget<'a> {
                             VPlacement::Top => self.rect.max.y - galley.size().y,
                         };
                         let pos = Pos2::new(center_x - galley.size().x / 2.0, y);
-                        ui.painter().add(TextShape::new(pos, galley, text_color));
+                        ui.painter().add(
+                            TextShape::new(pos, galley, text_color)
+                            .with_override_text_color(Color32::LIGHT_GREEN)
+                        );
                     }
                     Axis::Y => {
                         thickness = thickness.max(galley.size().x);
@@ -367,7 +370,10 @@ impl<'a> AxisWidget<'a> {
                                 if angle == 0.0 {
                                     let x = self.rect.max.x - galley.size().x;
                                     let pos = Pos2::new(x, center_y - galley.size().y / 2.0);
-                                    ui.painter().add(TextShape::new(pos, galley, text_color));
+                                    ui.painter().add(
+                                        TextShape::new(pos, galley, text_color)
+                                        .with_override_text_color(Color32::YELLOW)
+                                    );
                                 } else {
                                     let right = Pos2::new(
                                         self.rect.max.x,
