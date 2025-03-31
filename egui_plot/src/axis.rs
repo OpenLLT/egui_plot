@@ -380,7 +380,7 @@ impl<'a> AxisWidget<'a> {
                                     ui.painter().add(
                                         TextShape::new(left, galley, text_color)
                                         .with_angle(angle)
-                                        .with_override_text_color(Some(Color32::YELLOW)),
+                                        .with_override_text_color(Color32::YELLOW),
                                     );
                                 }
                             }
@@ -389,7 +389,7 @@ impl<'a> AxisWidget<'a> {
                                 let pos = Pos2::new(x, center_y - galley.size().y / 2.0);
                                 ui.painter().add(
                                     TextShape::new(pos, galley, text_color)
-                                    .with_override_text_color(Some(Color32::YELLOW))
+                                    .with_override_text_color(Color32::YELLOW)
                                 );
                             }
                         };
