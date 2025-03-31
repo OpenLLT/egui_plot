@@ -3,7 +3,7 @@ use std::{fmt::Debug, ops::RangeInclusive, sync::Arc};
 use egui::{
     emath::{remap_clamp, Rot2},
     epaint::TextShape,
-    Pos2, Rangef, Rect, Response, Sense, TextStyle, TextWrapMode, Ui, Vec2, WidgetText,
+    Color32, Pos2, Rangef, Rect, Response, Sense, TextStyle, TextWrapMode, Ui, Vec2, WidgetText,
 };
 
 use super::{transform::PlotTransform, GridMark};
@@ -378,14 +378,19 @@ impl<'a> AxisWidget<'a> {
                                         right - Rot2::from_angle(angle) * Vec2::new(width, 0.0);
 
                                     ui.painter().add(
-                                        TextShape::new(left, galley, text_color).with_angle(angle),
+                                        TextShape::new(left, galley, text_color)
+                                        .with_angle(angle)
+                                        .with_override_text_color(Some(Color32:YELLLOW)),
                                     );
                                 }
                             }
                             HPlacement::Right => {
                                 let x = self.rect.min.x;
                                 let pos = Pos2::new(x, center_y - galley.size().y / 2.0);
-                                ui.painter().add(TextShape::new(pos, galley, text_color));
+                                ui.painter().add(
+                                    TextShape::new(pos, galley, text_color)
+                                    .with_override_text_color(Some(Color32:YELLLOW))
+                                );
                             }
                         };
                     }
