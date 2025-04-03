@@ -232,8 +232,6 @@ pub struct AxisWidget<'a> {
     pub rect: Rect,
     pub transform: Option<PlotTransform>,
     pub steps: Arc<Vec<GridMark>>,
-    pub tick_labels_thickness: f32,
-    pub axis_label_thickness: f32,
 }
 
 impl<'a> AxisWidget<'a> {
@@ -308,8 +306,6 @@ impl<'a> AxisWidget<'a> {
             Axis::Y => -std::f32::consts::FRAC_PI_2,
         };
 
-        self.axis_label_thickness = axis_label_thickness;
-        self.tick_labels_thickness = tick_labels_thickness;
         ui.painter()
             .add(TextShape::new(text_pos, galley, ui.visuals().text_color()).with_angle(angle));
 
@@ -317,7 +313,7 @@ impl<'a> AxisWidget<'a> {
     }
 
     /// Add tick labels to the axis. Returns the thickness of the axis.
-    fn add_tick_labels(&self, ui: &Ui, transform: PlotTransform, axis: Axis) -> f32 {
+    pub fn add_tick_labels(&self, ui: &Ui, transform: PlotTransform, axis: Axis) -> f32 {
         let font_id = TextStyle::Body.resolve(ui.style());
         let label_spacing = self.hints.label_spacing;
         let mut thickness: f32 = 0.0;
