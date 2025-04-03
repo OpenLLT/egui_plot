@@ -102,11 +102,11 @@ impl From<Placement> for VPlacement {
 /// Used to configure axis label and ticks.
 #[derive(Clone)]
 pub struct AxisHints<'a> {
-    pub(super) label: WidgetText,
-    pub(super) formatter: Arc<AxisFormatterFn<'a>>,
-    pub(super) min_thickness: f32,
-    pub(super) placement: Placement,
-    pub(super) label_spacing: Rangef,
+    pub label: WidgetText,
+    pub formatter: Arc<AxisFormatterFn<'a>>,
+    pub min_thickness: f32,
+    pub placement: Placement,
+    pub label_spacing: Rangef,
 }
 
 // TODO(JohannesProgrammiert): this just a guess. It might cease to work if a user changes font size.
@@ -204,7 +204,7 @@ impl<'a> AxisHints<'a> {
         self
     }
 
-    pub(super) fn thickness(&self, axis: Axis) -> f32 {
+    pub fn thickness(&self, axis: Axis) -> f32 {
         match axis {
             Axis::X => self.min_thickness.max(if self.label.is_empty() {
                 1.0 * LINE_HEIGHT
@@ -224,7 +224,7 @@ impl<'a> AxisHints<'a> {
 }
 
 #[derive(Clone)]
-pub(super) struct AxisWidget<'a> {
+pub struct AxisWidget<'a> {
     pub range: RangeInclusive<f64>,
     pub hints: AxisHints<'a>,
 
@@ -232,6 +232,8 @@ pub(super) struct AxisWidget<'a> {
     pub rect: Rect,
     pub transform: Option<PlotTransform>,
     pub steps: Arc<Vec<GridMark>>,
+    pub tick_labels_thickness: f32,
+    pub axis_label_thickness: f32,
 }
 
 impl<'a> AxisWidget<'a> {
@@ -306,6 +308,8 @@ impl<'a> AxisWidget<'a> {
             Axis::Y => -std::f32::consts::FRAC_PI_2,
         };
 
+        self.axis_label_thickness = axis_label_thickness;
+        self.tick_labels_thickness = tick_labels_thickness;
         ui.painter()
             .add(TextShape::new(text_pos, galley, ui.visuals().text_color()).with_angle(angle));
 
